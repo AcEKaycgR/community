@@ -1,0 +1,32 @@
+{
+  "name": "json-schema-ecosystem-collector",
+  "version": "1.0.0",
+  "description": "Data collector for JSON Schema ecosystem observability",
+  "type": "module",
+  "main": "main.js",
+  "scripts": {
+    "start": "node main.js",
+    "collect": "node main.js",
+    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js"
+  },
+  "keywords": [
+    "json-schema",
+    "ecosystem",
+    "metrics",
+    "observability"
+  ],
+  "author": "JSON Schema Community",
+  "license": "MIT",
+  "dependencies": {
+    "octokit": "^3.1.2",
+    "dotenv": "^16.3.1",
+    "minimist": "^1.2.8"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "transform": {}
+  }
+}

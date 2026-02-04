@@ -1,0 +1,19 @@
+{
+  "name": "json-schema-ecosystem-dashboard",
+  "version": "1.0.0",
+  "description": "Dashboard for visualizing JSON Schema ecosystem data",
+  "scripts": {
+    "dev": "npx http-server -p 8080 -o",
+    "build": "node build.js"
+  },
+  "keywords": [
+    "json-schema",
+    "ecosystem",
+    "dashboard"
+  ],
+  "author": "JSON Schema Community",
+  "license": "MIT",
+  "devDependencies": {
+    "http-server": "^14.1.1"
+  }
+}

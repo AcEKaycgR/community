@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JSON Schema Ecosystem Observatory</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>JSON Schema Ecosystem Observatory</h1>
+            <p class="subtitle">Tracking the growth and health of the JSON Schema ecosystem</p>
+        </div>
+    </header>
+
+    <main class="container">
+        <!-- Current Statistics -->
+        <section class="stats-grid" id="current-stats">
+            <div class="stat-card">
+                <div class="stat-value" id="total-repos">-</div>
+                <div class="stat-label">Total Repositories</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="total-stars">-</div>
+                <div class="stat-label">Total Stars</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="total-contributors">-</div>
+                <div class="stat-label">Total Contributors</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="total-forks">-</div>
+                <div class="stat-label">Total Forks</div>
+            </div>
+        </section>
+
+        <!-- Last Updated -->
+        <section class="last-updated">
+            <p>Last updated: <span id="last-updated">-</span></p>
+        </section>
+
+        <!-- Charts -->
+        <section class="charts">
+            <div class="chart-container">
+                <h2>Repository Growth Over Time</h2>
+                <canvas id="repos-timeline-chart"></canvas>
+            </div>
+
+            <div class="chart-container">
+                <h2>Stars Growth Over Time</h2>
+                <canvas id="stars-timeline-chart"></canvas>
+            </div>
+
+            <div class="chart-container">
+                <h2>Contributors Growth Over Time</h2>
+                <canvas id="contributors-timeline-chart"></canvas>
+            </div>
+
+            <div class="chart-container">
+                <h2>Language Distribution</h2>
+                <canvas id="language-distribution-chart"></canvas>
+            </div>
+
+            <div class="chart-container">
+                <h2>Activity Metrics</h2>
+                <canvas id="activity-metrics-chart"></canvas>
+            </div>
+        </section>
+
+        <!-- Top Repositories per Language -->
+        <section class="top-repos">
+            <h2>Top Repositories by Language</h2>
+            <div id="top-repos-content"></div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>JSON Schema Ecosystem Observatory | Part of <a href="https://json-schema.org" target="_blank">JSON Schema</a></p>
+            <p>Data collected via GitHub API | Updated weekly</p>
+            <p><a href="https://github.com/json-schema-org/community/issues/980" target="_blank">GSoC 2026 Project</a></p>
+        </div>
+    </footer>
+
+    <script src="dashboard.js"></script>
+</body>
+</html>

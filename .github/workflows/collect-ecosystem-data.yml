@@ -1,0 +1,71 @@
+name: Collect Ecosystem Data
+
+on:
+  schedule:
+    # Run every Monday at 00:00 UTC
+    - cron: '0 0 * * 1'
+  workflow_dispatch: # Allow manual triggering
+
+permissions:
+  contents: write
+
+jobs:
+  collect-data:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: ecosystem-observability/collector/package.json
+
+      - name: Install dependencies
+        working-directory: ecosystem-observability/collector
+        run: npm ci
+
+      - name: Collect ecosystem data
+        working-directory: ecosystem-observability/collector
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TOPIC: json-schema
+          MAX_REPOS: -1
+          DATA_DIR: ./data
+        run: npm start
+
+      - name: Commit and push data
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add ecosystem-observability/collector/data/
+          
+          # Only commit if there are changes
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "chore: update ecosystem data $(date +'%Y-%m-%d')"
+            git push
+          fi
+
+      - name: Generate dashboard (if data exists)
+        if: success()
+        working-directory: ecosystem-observability/dashboard
+        run: |
+          if [ -f "../collector/data/history.json" ]; then
+            npm ci
+            npm run build
+          else
+            echo "No historical data available yet"
+          fi
+
+      - name: Deploy to GitHub Pages
+        if: success()
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./ecosystem-observability/dashboard/dist
+          publish_branch: gh-pages
